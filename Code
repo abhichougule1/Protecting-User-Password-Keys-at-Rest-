@@ -1,0 +1,41 @@
+from cryptography.fernet import Fernet
+import os
+
+# Generate a key for encryption (you should securely store this key)
+def generate_key():
+    return Fernet.generate_key()
+
+# Load an existing key from a secure location
+def load_key():
+    # Replace with your own method of securely loading the key
+    # Example: You could load from a file or environment variable
+    # For demonstration purposes, using a static key
+    return b'your_generated_key_here'
+
+# Encrypt a password
+def encrypt_password(password, key):
+    fernet = Fernet(key)
+    encrypted_password = fernet.encrypt(password.encode())
+    return encrypted_password
+
+# Decrypt a password
+def decrypt_password(encrypted_password, key):
+    fernet = Fernet(key)
+    decrypted_password = fernet.decrypt(encrypted_password).decode()
+    return decrypted_password
+
+# Example usage
+if __name__ == "__main__":
+    # Generate or load the key (in a real scenario, you would securely load the key)
+    key = load_key()
+    
+    # Example password to encrypt
+    password_to_encrypt = "user_password123"
+    
+    # Encrypt the password
+    encrypted_password = encrypt_password(password_to_encrypt, key)
+    print(f"Encrypted password: {encrypted_password}")
+    
+    # Decrypt the password
+    decrypted_password = decrypt_password(encrypted_password, key)
+    print(f"Decrypted password: {decrypted_password}")
